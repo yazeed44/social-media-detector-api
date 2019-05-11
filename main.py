@@ -1,11 +1,11 @@
-import sys
 import os.path
-from telethon import TelegramClient, sync
+import sys
+
+from telethon import TelegramClient
 from telethon.tl.functions.contacts import ImportContactsRequest
 from telethon.tl.types import InputPhoneContact
 
 import private_constants
-
 # TODO investigate limitations of Telegram API regarding importing contacts
 from PhoneNumber import PhoneNumber
 
@@ -22,8 +22,9 @@ def check_telegram(phone_number_list):
                 contact = client.get_input_entity(phone_number.get_phone_number())
                 phone_number.set_telegram(contact.user_id > 0)
 
-            except ValueError:
+            except ValueError as e:
                 # TODO Use an error logger
+                print(e)
                 phone_number.set_telegram(False)
     return phone_number_list
 
@@ -36,7 +37,8 @@ def create_phone_numbers(arguments):
             for line in file:
                 phone_number_list.append(PhoneNumber(line.strip('\n')))
     else:
-        phone_number_list.append(arguments[1:])
+        for raw_phone_number in arguments[1:]:
+            phone_number_list.append(PhoneNumber(raw_phone_number.strip('\n')))
     #TODO Check if list is empty and provide warning
     return phone_number_list
 
