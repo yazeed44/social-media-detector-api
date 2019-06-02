@@ -1,5 +1,7 @@
 class PhoneNumber:
     phone_number = ""
+    # TODO has_telegram and has_whatsapp will indicate if the number has been checked or if the program encountered an
+    #  error instead of just true/false
     has_telegram = False
     has_whatsapp = False
 
