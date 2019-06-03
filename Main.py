@@ -2,6 +2,7 @@
 # TODO allow users to specify which social media application to track
 # TODO Write unit tests
 # TODO Write documentation
+# Ultimately, I want Main.py to only have command arguments processing. Will work on that later
 import os.path
 import sys
 import private_constants
@@ -24,7 +25,7 @@ def create_phone_numbers(arguments):
                 phone_number_list.append(PhoneNumber(line.strip('\n')))
     else:
         for raw_phone_number in arguments[1:]:
-            phone_number_list.append(PhoneNumber(raw_phone_number.strip('\n')))
+            phone_number_list.append(PhoneNumber(raw_phone_number))
     return phone_number_list
 
 

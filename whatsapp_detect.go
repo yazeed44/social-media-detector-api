@@ -62,18 +62,16 @@ func main() {
 	}
 
 	//This program only takes raw phone numbers. It does not accept files as inputs
-	for _, element := range os.Args[1:] {
-		whatsapp_exists(&element, wac)
+	if os.Args[1] != "auth" {
+		//If auth is included in the input, then only try to login
+		for _, element := range os.Args[1:] {
+			whatsapp_exists(&element, wac)
+		}
 	}
 
 
 
-	//c := make(chan os.Signal, 1)
-	//signal.Notify(c, os.Interrupt, syscall.SIGTERM)
-	//<-c
 
-	//Disconnect safe
-	//fmt.Println("Shutting down now.")
 	session, err := wac.Disconnect()
 	if err != nil {
 		log.Fatalf("error disconnecting: %v\n", err)
@@ -90,6 +88,7 @@ func login(wac *whatsapp.Conn) error {
 		//restore session
 		session, err = wac.RestoreWithSession(session)
 		if err != nil {
+			//Maybe delete the file whatsappSession.gob over here
 			return fmt.Errorf("restoring failed: %v\n", err)
 		}
 	} else {
@@ -113,8 +112,9 @@ func login(wac *whatsapp.Conn) error {
 	return nil
 }
 func readSession() (whatsapp.Session, error) {
+	//Sometimes the session would refer to an invalid connection. In that case you have to delete the session file
 	session := whatsapp.Session{}
-	file, err := os.Open(os.TempDir() + "/whatsappSession.gob")
+	file, err := os.Open("whatsappSession.gob")
 	if err != nil {
 		return session, err
 	}
@@ -128,7 +128,7 @@ func readSession() (whatsapp.Session, error) {
 }
 
 func writeSession(session whatsapp.Session) error {
-	file, err := os.Create(os.TempDir() + "/whatsappSession.gob")
+	file, err := os.Create("whatsappSession.gob")
 	if err != nil {
 		return err
 	}
