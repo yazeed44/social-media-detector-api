@@ -45,3 +45,7 @@ class Telegram(BaseSocialApp):
                     # print(e)
                     phone_number.set_telegram(False)
         return phone_numbers
+
+    def process(self, phone_numbers):
+        # TODO implement an optimal algorithem for Telegram where various client phone numbers are used to detect
+        self.detect_numbers(phone_numbers)

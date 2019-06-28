@@ -4,12 +4,13 @@ import os.path
 
 
 class Whatsapp(BaseSocialApp):
+
     def authenticate(self):
-        # TODO implement a robust way to verify through qr code
         # Currently, Whatsapp go will try to verify through qr code and will time out if not entered within a minute
         # command = 'go run whatsapp_detect.go auth'
         # output = subprocess.run(command, shell=True)
         # print(output)
+        # TODO implement a way to have multiple whatsapp sessions
         if not os.path.isfile("whatsappSession.gob"):
             print("Whatsapp will need authorization to your account. Scan the shown qr code. You might need to "
                   "restart the program after scanning the qr code")
@@ -32,3 +33,7 @@ class Whatsapp(BaseSocialApp):
             # For each phone number, look for the corresponding line in the output
             phone.set_whatsapp("\"status\":200" in result_decoded[index])
         return phone_numbers
+
+    def process(self, phone_numbers):
+        # TODO implement an optimal algorithem for whatsapp where various client phone numbers are used to detect
+        self.detect_numbers(phone_numbers)
