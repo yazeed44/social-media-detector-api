@@ -3,37 +3,24 @@
 # TODO Write unit tests
 # TODO Write documentation
 # Ultimately, I want Main.py to only have command arguments processing. Will work on that later
-import os.path
+# Right now Main.py is used to demonstrate how to use the API
 import sys
+
+import Utils
 import private_constants
-from PhoneNumber import PhoneNumber
+from SocialDetector import SocialDetector
 from Telegram import Telegram
 from Whatsapp import Whatsapp
 
 
-def create_phone_numbers(arguments):
-    # Currently the processing of numbers to objects is sensitive. Meaning that empty and invalid lines might get
-    # processed into an objects, which obviously shouldn't. Bear that in mind
-
-    if len(arguments) <= 1:
-        return []
-
-    phone_number_list = []
-    if os.path.isfile(arguments[1]):
-        with open(arguments[1]) as file:
-            for line in file:
-                phone_number_list.append(PhoneNumber(line.strip('\n')))
-    else:
-        for raw_phone_number in arguments[1:]:
-            phone_number_list.append(PhoneNumber(raw_phone_number))
-    return phone_number_list
-
-
 def main():
-    phone_number_list = create_phone_numbers(sys.argv)
-    assert phone_number_list != [], "The input is empty"
-    Telegram(private_constants.TELEGRAM_API_ID, private_constants.TELEGRAM_API_HASH).detect_numbers(phone_number_list)
-    Whatsapp().detect_numbers(phone_number_list)
+    phone_number_list = Utils.cmd_args_to_phone_number(sys.argv)
+    detector = SocialDetector()
+    detector.add_social_app(
+        Telegram(phone_number_list, private_constants.TELEGRAM_API_ID, private_constants.TELEGRAM_API_HASH))
+
+    # detector.add_social_app(Whatsapp(phone_number_list))
+    detector.detect()
     for number in phone_number_list:
         print(number)
 

@@ -1,9 +1,15 @@
+from enum import Enum
+
+
+class AppUsageEnum(Enum):
+    ERROR = -1  # There was an error while trying to detect whether this phone number uses a certain social app.
+    NO_USAGE = 0  # This phone number does not use the app
+    USAGE = 1  # This phone number has the app and it uses it
+
+
 class PhoneNumber:
     phone_number = ""
-    # TODO has_telegram and has_whatsapp will indicate if the number has been checked or if the program encountered an
-    #  error instead of just true/false
-    has_telegram = False
-    has_whatsapp = False
+    app_usage = {}  # Used to track which apps are used by this phone number
 
     def __init__(self, phone_number):
         self.phone_number = phone_number
@@ -11,17 +17,17 @@ class PhoneNumber:
     def get_phone_number(self):
         return self.phone_number
 
-    def set_telegram(self, has_telegram):
-        self.has_telegram = has_telegram
+    # Return a constant of AppUsageEnum
+    def has_app(self, app_name):
+        return self.app_usage[app_name]
 
-    def set_whatsapp(self, has_whatsapp):
-        self.has_whatsapp = has_whatsapp
-
-    def has_telegram(self):
-        return self.has_telegram
-
-    def has_whatsapp(self):
-        return self.has_whatsapp
+    # Sets whether a phone number is using an app
+    # state will be a constant of AppUsageEnum
+    def set_app_state(self, app_name, state):
+        self.app_usage[app_name] = state
 
     def __str__(self):
-        return self.phone_number + ", Telegram: " + str(self.has_telegram) + ", Whatsapp: " + str(self.has_whatsapp)
+        usage_as_string = self.phone_number + "\n"
+        for key, val in self.app_usage.items():
+            usage_as_string += key + " => " + val.name + "\n"
+        return usage_as_string

@@ -2,6 +2,8 @@ from BaseSocialApp import BaseSocialApp
 import subprocess
 import os.path
 
+from PhoneNumber import AppUsageEnum
+
 
 class Whatsapp(BaseSocialApp):
 
@@ -31,9 +33,14 @@ class Whatsapp(BaseSocialApp):
         result_decoded = output.stdout.decode('utf-8').splitlines()
         for index, phone in enumerate(phone_numbers):
             # For each phone number, look for the corresponding line in the output
-            phone.set_whatsapp("\"status\":200" in result_decoded[index])
+            # TODO find a way to differentiate a way between NO_USAGE and ERROR
+            phone.set_app_state(self.get_name(), AppUsageEnum.USAGE if "\"status\":200" in result_decoded[
+                index] else AppUsageEnum.NO_USAGE)
         return phone_numbers
 
-    def process(self, phone_numbers):
-        # TODO implement an optimal algorithem for whatsapp where various client phone numbers are used to detect
-        self.detect_numbers(phone_numbers)
+    def process(self):
+        # TODO implement an optimal algorithm for whatsapp where various client phone numbers are used to detect
+        self.detect_numbers(self.phone_numbers_to_detect)
+
+    def get_name(self):
+        return "Whatsapp"
