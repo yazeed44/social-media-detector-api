@@ -9,11 +9,10 @@ import os.path
 from PhoneNumber import AppUsageEnum
 
 
+# TODO investigate limitations of Telegram API regarding importing contacts
+
 class Telegram(BaseSocialApp):
     # Two lists of authenticators, and will be checked to assure that they are of the same length
-    api_ID = None
-    api_hash = None
-
     def __init__(self, phone_numbers_to_detect, api_id, api_hash):
         self.api_ID = api_id
         self.api_hash = api_hash
