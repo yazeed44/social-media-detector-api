@@ -22,7 +22,7 @@ def generate_uuid(type):
 
 
 def generate_device_id():
-    return str(uuid.uuid4()).replace('-', '')[:17]
+    return str(uuid.uuid4()).replace('-', '')[:16]
 
 
 def generate_signature(data):

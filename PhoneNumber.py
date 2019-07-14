@@ -8,11 +8,10 @@ class AppUsageEnum(Enum):
 
 
 class PhoneNumber:
-    phone_number = ""
-    app_usage = {}  # Used to track which apps are used by this phone number
 
     def __init__(self, phone_number):
         self.phone_number = phone_number
+        self.app_usage = {}  # Used to track which apps are used by this phone number
 
     def get_phone_number(self):
         return self.phone_number
