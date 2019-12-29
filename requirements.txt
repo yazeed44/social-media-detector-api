@@ -1,0 +1,9 @@
+certifi==2019.11.28
+chardet==3.0.4
+idna==2.8
+pyaes==1.6.1
+pyasn1==0.4.8
+requests==2.22.0
+rsa==4.0
+Telethon==1.10.9
+urllib3==1.25.7
