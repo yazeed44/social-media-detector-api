@@ -12,6 +12,7 @@ class BaseSocialApp(ABC):
     def authenticate(self):
         pass
 
+    # TODO Find a way to separate detection & authentication into a new class
     @abstractmethod
     def detect_single_number(self, phone_number):
         pass

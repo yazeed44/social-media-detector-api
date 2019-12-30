@@ -15,8 +15,8 @@ from Whatsapp import Whatsapp
 def main():
     phone_number_list = Utils.cmd_args_to_phone_number(sys.argv)
     detector = SocialDetector()
-    # detector.add_social_app(Telegram(phone_number_list, private_constants.TELEGRAM_API_ID, private_constants.TELEGRAM_API_HASH))
-
+    detector.add_social_app(Telegram(phone_number_list, private_constants.TELEGRAM_API_ID, private_constants.TELEGRAM_API_HASH))
+    detector.add_social_app(Whatsapp(phone_number_list))
     detector.add_social_app(Instagram(phone_number_list))
     detector.detect()
     for number in phone_number_list:

@@ -45,9 +45,15 @@ class Telegram(BaseSocialApp):
                                                AppUsageEnum.USAGE if contact.user_id > 0 else AppUsageEnum.NO_USAGE)
 
                 except ValueError as e:
+
                     # TODO Use an error logger
-                    # print(e)
-                    phone_number.set_app_state(self.get_name(), AppUsageEnum.ERROR)
+                    if "Cannot find any entity corresponding to" in str(e):
+                        # If this error happens that means the API call was successfully, but the phone number does
+                        # not have Telegram
+                        phone_number.set_app_state(self.get_name(), AppUsageEnum.NO_USAGE)
+                    else:
+                        print(e)
+                        phone_number.set_app_state(self.get_name(), AppUsageEnum.ERROR)
         return phone_numbers
 
     def process(self):

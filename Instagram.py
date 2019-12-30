@@ -33,6 +33,8 @@ def generate_signature(data):
 
 
 def generate_headers():
+    # This is very basic headers and is literally copy pasted from burp.
+    # TODO replace this with headers that is randomly generated
     return {
         "X-Pigeon-Session-Id": "3168f276-8c96-4db3-87af-1db1aa9cad09",
         "X-Pigeon-Rawclienttime": "1562978852"".860",
@@ -51,13 +53,13 @@ def generate_headers():
 
         "X-FB-HTTP-Engine": "Liger",
         "Connection": "close"
-    }  # This is very basic headers and is literally
-    # copy pasted from burp. TODO replace this with headers that is randomly generated
+    }
 
 
 def generate_user_agent():
+    # TODO Generate random user agent
     return "Instagram 101.0.0.15.120 Android (26/8.0.0; 320dpi; 768x1184; Genymotion/Android; " \
-           "instagram_following_itsmoji; vbox86p; vbox86; en_US; 162439045) "  # TODO Generate random user agent
+           "instagram_following_itsmoji; vbox86p; vbox86; en_US; 162439045) "
 
 
 class Instagram(BaseSocialApp):
@@ -104,8 +106,8 @@ class Instagram(BaseSocialApp):
             phone_number.set_app_state(self.get_name(), PhoneNumber.AppUsageEnum.USAGE)
             # Check if the user has whatsapp too
             if response.json()['can_wa_reset']:
-                phone_number.set_app_state("Whatsapp", PhoneNumber.AppUsageEnum.USAGE)  # TODO replace the hardcoded
-                # whatsapp string with a centralized strings file
+                # TODO replace the hardcoded whatsapp string with a centralized strings file
+                phone_number.set_app_state("Whatsapp", PhoneNumber.AppUsageEnum.USAGE)
             else:
                 phone_number.set_app_state("Whatsapp", PhoneNumber.AppUsageEnum.NO_USAGE)
         elif response.status_code == 404:
