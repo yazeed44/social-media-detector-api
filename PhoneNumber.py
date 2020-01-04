@@ -1,3 +1,4 @@
+
 from enum import Enum
 
 
@@ -9,6 +10,7 @@ class AppUsageEnum(Enum):
 
 class PhoneNumber:
 
+    # TODO include the usernames of each application in here
     def __init__(self, phone_number):
         self.phone_number = phone_number
         self.app_usage = {}  # Used to track which apps are used by this phone number

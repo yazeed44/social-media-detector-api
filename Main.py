@@ -1,5 +1,6 @@
 # TODO Write unit tests
 # TODO Write documentation
+
 # Ultimately, I want Main.py to only have command arguments processing. Will work on that later
 # Right now Main.py is used to demonstrate how to use the API
 import sys

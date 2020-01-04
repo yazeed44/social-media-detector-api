@@ -85,6 +85,7 @@ class Instagram(BaseSocialApp):
                                              'User-Agent': generate_user_agent()})
 
     def generate_data(self, phone_number_raw):
+        # TODO look into whether there is a possibility of creating one request for lots of phone numbers
         data = {'phone_id': generate_uuid(True),
                 'guid': generate_uuid(True),
                 'device_id': generate_device_id(),
