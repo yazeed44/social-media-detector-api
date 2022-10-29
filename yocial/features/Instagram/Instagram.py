@@ -99,7 +99,7 @@ class Instagram(BaseSocialApp):
 
     def detect_single_number(self, phone_number):
         self.setup_session()
-        data = self.generate_data(phone_number.get_phone_number())
+        data = self.generate_data(phone_number.phone_number)
 
         response = self.current_session.post(USERS_LOOKUP_URL, data=generate_signature(json.dumps(data)))
         self.last_response = response
@@ -113,6 +113,10 @@ class Instagram(BaseSocialApp):
                 phone_number.set_app_state("Whatsapp", PhoneNumber.AppUsageEnum.NO_USAGE)
         elif response.status_code == 404:
             phone_number.set_app_state(self.get_name(), PhoneNumber.AppUsageEnum.NO_USAGE)
+        else:
+            # a generic bypass for generic failures for unexpected errors
+            # for my case I faced `Too many requests` error
+            phone_number.set_app_state(self.get_name(), response.reason)
 
     def detect_numbers(self, phone_numbers):
         for phone in phone_numbers:
