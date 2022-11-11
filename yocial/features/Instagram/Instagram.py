@@ -7,8 +7,8 @@ import uuid as uuid
 
 import requests
 
-import PhoneNumber
-from BaseSocialApp import BaseSocialApp
+import yocial.features.PhoneNumber as PhoneNumber
+from yocial.features.BaseSocialApp import BaseSocialApp
 
 API_URL = 'https://i.instagram.com/api/v1/'
 USERS_LOOKUP_URL = API_URL + 'users/lookup/'

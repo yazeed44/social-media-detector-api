@@ -1,6 +1,6 @@
 import os
 
-from PhoneNumber import PhoneNumber
+from yocial.features.PhoneNumber import PhoneNumber
 
 
 def file_to_phone_number(file_path):
