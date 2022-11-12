@@ -24,14 +24,14 @@ def main():
     phone_number_list = app_utils.cmd_args_to_phone_number(sys.argv)
     detector = SocialDetector()
     secret_id, secret_hash = get_secret()
-    # detector.add_social_app(
-    #    Telegram(
-    #        phone_number_list,
-    #        secret_id,
-    #        secret_hash,
-    #    )
-    # )
-    # detector.add_social_app(Whatsapp(phone_number_list))
+    detector.add_social_app(
+        Telegram(
+            phone_number_list,
+            secret_id,
+            secret_hash,
+        )
+    )
+    detector.add_social_app(Whatsapp(phone_number_list))
     detector.add_social_app(Instagram(phone_number_list))
     detector.detect()
     for number in phone_number_list:
