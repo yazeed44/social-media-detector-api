@@ -8,7 +8,7 @@ __pycache__/
 .idea/
 
 test-reports/*
-
+detect.session
 # C extensions
 *.so
 

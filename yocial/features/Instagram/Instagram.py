@@ -120,22 +120,22 @@ class Instagram(BaseSocialApp):
         self.last_response = response
         if response.ok:
             phone_number.set_app_state(
-                self.get_name(), phone_number.AppUsageEnum.USAGE
+                self.get_name(), AppUsageEnum.USAGE
             )
             # Check if the user has whatsapp too
             if response.json()["can_wa_reset"]:
                 # TODO replace the hardcoded whatsapp string with a centralized
                 # strings file
                 phone_number.set_app_state(
-                    "Whatsapp", phone_number.AppUsageEnum.USAGE
+                    "Whatsapp", AppUsageEnum.USAGE
                 )
             else:
                 phone_number.set_app_state(
-                    "Whatsapp", phone_number.AppUsageEnum.NO_USAGE
+                    "Whatsapp", AppUsageEnum.NO_USAGE
                 )
         elif response.status_code == 404:
             phone_number.set_app_state(
-                self.get_name(), phone_number.AppUsageEnum.NO_USAGE
+                self.get_name(), AppUsageEnum.NO_USAGE
             )
         else:
             # a generic bypass for generic failures for unexpected errors

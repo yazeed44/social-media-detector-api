@@ -5,7 +5,7 @@ from dataclasses import dataclass, field
 class AppUsageEnum(Enum):
     # There was an error while trying to detect whether this phone number uses
     # a certain social app.
-    ERROR = (-1)
+    ERROR = -1
     NO_USAGE = 0  # This phone number does not use the app
     USAGE = 1  # This phone number has the app and it uses it
 
@@ -14,7 +14,7 @@ class AppUsageEnum(Enum):
 class PhoneNumber:
     _phone_number: str = ""
     # Used to track which apps are used by this phone number
-    app_usage: dict = field(init=False, default_factory=dict)
+    app_usage: dict = field(default_factory=dict)
 
     # get a current phone number
     @property
