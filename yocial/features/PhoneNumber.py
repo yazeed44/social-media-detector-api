@@ -1,16 +1,20 @@
-
 from enum import Enum
 from dataclasses import dataclass, field
+
+
 class AppUsageEnum(Enum):
-    ERROR = -1  # There was an error while trying to detect whether this phone number uses a certain social app.
+    # There was an error while trying to detect whether this phone number uses
+    # a certain social app.
+    ERROR = (-1)
     NO_USAGE = 0  # This phone number does not use the app
     USAGE = 1  # This phone number has the app and it uses it
+
 
 @dataclass
 class PhoneNumber:
     _phone_number: str = ""
-     # Used to track which apps are used by this phone number
-    app_usage: dict = field(init=False,default_factory=dict)
+    # Used to track which apps are used by this phone number
+    app_usage: dict = field(init=False, default_factory=dict)
 
     # get a current phone number
     @property
@@ -37,22 +41,6 @@ class PhoneNumber:
             # to handle errors
             try:
                 usage_as_string += key + " => " + val.name + "\n"
-            except:
+            except BaseException:
                 usage_as_string += key + " => " + val + "\n"
         return usage_as_string
-
-    def verifier(number) -> bool:
-        '''
-        Return boolean value based on the verification logic
-            
-            Parameters:
-                number  -> the number need to be verified
-            Return:
-                True    -> if it's valid
-                False   -> if it's not valid
-        '''
-        # TODO: substring condition
-        if(len(number) == 10):
-             return True
-        else:
-            return False

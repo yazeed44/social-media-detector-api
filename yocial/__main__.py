@@ -1,9 +1,7 @@
-
-
-'''
+"""
 Entry point to run yocial module `python3 -m yocial`.
-'''
+"""
 
-from yocial.Main import main
+from yocial.app_main import main
 
 main()
